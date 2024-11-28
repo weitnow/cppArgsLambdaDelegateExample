@@ -2,24 +2,21 @@
 #include <functional>
 #include "Object.h"
 
-// lambda function
-std::function<void(float)> func = [](float var)
-{
-    std::cout << "The value of var is: " << var << std::endl;
-};
-
-template <typename... Args>
-void test(Args... args) {
-    ((std::cout << args << " "), ...) << std::endl;
-};
 
 int main()
 {
-    std::vector<std::shared_ptr<Object>> objVector;
+    
+    // generate a shared Object. Objct inherits from a class called std::enalbe_shared_from_this
+    auto myObj = std::make_shared<Object>();
+    // Objects holds a membervariable of HealthComponent* and in its constructor assigns it with calling healthcomponent = new HealthComponent();
+    // HealthComponent has a Delegate<float,float,float> onHealthChanged;
 
-    objVector.push_back(std::make_shared<Object>());
+    myObj->init();
+    // std::weak_ptr<Object> selfRef = GetWeakRef();
+    // healthcomponent->onHealthChanged.BindAction(GetWeakRef(), &Object::OnHealthChanged);
+    // healthcomponent->onHealthChanged.Broadcast(11, 89, 100);
+    // init first creates a local variable which has a weakptr to itself
+    // it takes the onHealthChanged delegate and calls BindAction<Object>(weakself, an a functionptr with no params)
 
-    objVector[0]->init();
-
-
+    return 0;
 }

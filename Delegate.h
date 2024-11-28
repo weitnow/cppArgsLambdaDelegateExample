@@ -14,8 +14,7 @@ public:
     void BindAction(std::weak_ptr<Object> obj, void(ClassName::*callback)(Args...))
     {
         // capturing done by value, because obj and callback are pointers and there is no need to capture by reference
-        std::function<bool(Args...)> callbackFunc = [obj, callback](Args... args)->bool
-        //auto callbackFunc = [obj, callback](Args... args)->bool
+        auto callbackFunc = [obj, callback](Args... args)->bool
         {
 
             if(!obj.expired())
@@ -30,7 +29,7 @@ public:
         };
 
          mCallbacks.push_back(callbackFunc);
-        // if we would have capture by reference instead of value (which makes a copy) the reference would be destroyed here because the }
+        // if we would have capture by reference instead of value (which makes a copy) the reference would be destroyed here because the } which is the end of the scope
 
     }
 
