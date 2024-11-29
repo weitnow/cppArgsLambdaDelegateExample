@@ -15,11 +15,12 @@ public:
     {
         // capturing done by value, because obj and callback are pointers and there is no need to capture by reference
         auto callbackFunc = [obj, callback](Args... args)->bool
+        // this code generates a lamda-function and captures the obj as well as a function ptr to the class callback function
         {
 
             if(!obj.expired())
             {
-                // obj is an pointer to a Instance of Object but we want the actually Class
+                // obj is an pointer to a Instance of Object but we want the actuall Class
                 (static_cast<ClassName*>(obj.lock().get())->*callback)(args...);
                 //because obj ist not expired
                 return true;
